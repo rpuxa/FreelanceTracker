@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FreelanceTracker</string>
+    <string name="suggestions">suggestions: %d</string>
+</resources>
