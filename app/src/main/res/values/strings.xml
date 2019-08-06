@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">FreelanceTracker</string>
+    <string name="app_name">Freelance Tracker</string>
     <string name="suggestions">suggestions: %d</string>
 </resources>

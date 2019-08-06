@@ -16,6 +16,7 @@ enum class FreelanceMarket(val id: Int, val designation: String) : Serializable 
         override fun loadOffers(): List<Offer> {
             return try {
                 Jsoup.connect("$baseUrl/jobs/mobilynye-prilozheniya-28/")
+                    .data()
                     .get()
                     .select("div")
                     .first { it.className() == "cols_table" }
@@ -123,7 +124,29 @@ enum class FreelanceMarket(val id: Int, val designation: String) : Serializable 
                 FullOffer(offer, fullText, "https://kwork.ru/new_offer?project=$projectId")
             }
         }
-    }
+    },
+/*
+    FL(2, "FL") {
+         private val ARGS =
+            "action=postfilter&kind=5&pf_category=&pf_subcategory=&comboe_columns[1]=0&comboe_columns[0]=0&comboe_column_id=0&comboe_db_id=0&comboe=Все+специализации&pf_categofy[1][225]=1&location_columns[1]=0&location_columns[0]=0&location_column_id=0&location_db_id=0&location=Все+страны&pf_cost_from=&pf_cost_to=&pf_keywords=&u_token_key=5a72cb8488fe5673019423e44f0a79ce"
+                        .split('&')
+                        .associate {
+                            val (first, second) = it.split('=')
+                            first to second
+                        }
+
+        override fun loadOffers(): List<Offer> {
+            val result = Jsoup.connect("https://www.fl.ru/projects/")
+                .data(ARGS)
+                .post()
+                .select("div")
+                .first { it.id() == "projects-list" }
+
+        }
+
+        override suspend fun loadFullOffer(offer: Offer): FullOffer {
+        }
+    }*/
     ;
 
     protected abstract fun loadOffers(): List<Offer>

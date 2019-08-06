@@ -1,6 +1,5 @@
 package com.robobobo.apps.aws.freelancetracker.database
 
-import android.annotation.SuppressLint
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
@@ -22,8 +21,7 @@ data class Offer(
 ) : Serializable {
 
     val date: String
-        @SuppressLint("SimpleDateFormat")
-        get() = SimpleDateFormat("HH:mm MMMM dd").format(Date(time))
+        get() = SimpleDateFormat("HH:mm MMMM dd", Locale.US).format(Date(time))
 
     @PrimaryKey
     var id: Int = 0

@@ -22,7 +22,7 @@ class OfferActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_offer)
         openedFromNotification = intent?.extras?.get(FROM_NOTIFICATION) as? Boolean
-            ?: error("Needs from notification flag")
+            ?: error("Needs from_notification flag")
         val offer = intent?.extras?.get(OFFER) as? Offer ?: error("Needs offer")
 
         val dao = MyDataBase.create(this).offersDao

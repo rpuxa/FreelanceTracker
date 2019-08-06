@@ -3,11 +3,12 @@ package com.robobobo.apps.aws.freelancetracker.database
 import androidx.room.TypeConverter
 import com.robobobo.apps.aws.freelancetracker.FreelanceMarket
 
+@Suppress("unused")
 class Converters {
 
     @TypeConverter
-    fun toFreelanceMarket(id: Int) = FreelanceMarket.values().first { it.id == id }
+    fun Int.toFreelanceMarket() = FreelanceMarket.values().first { it.id == this }
 
     @TypeConverter
-   fun fromFreelanceMarket(market: FreelanceMarket) = market.id
+    fun FreelanceMarket.toInt() = id
 }

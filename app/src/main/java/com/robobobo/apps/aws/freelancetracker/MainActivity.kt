@@ -6,8 +6,11 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.robobobo.apps.aws.freelancetracker.database.MyDataBase
 import com.robobobo.apps.aws.freelancetracker.database.Offer
+import com.robobobo.apps.aws.freelancetracker.workers.GetOfferWorker
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,11 +36,11 @@ class MainActivity : AppCompatActivity() {
         )
 
         track.setOnClickListener {
-            track.isChecked = if (RequestBroadcast.isRunning(this)) {
-                RequestBroadcast.stop(this)
+            track.isChecked = if (GetOfferWorker.isRunning(this)) {
+                GetOfferWorker.stop(this)
                 false
             } else {
-                RequestBroadcast.start(this)
+                GetOfferWorker.start(this)
                 true
             }
         }
@@ -62,9 +65,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         notify.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.IO) {
-                sendBroadcast(RequestBroadcast.intent(this@MainActivity))
-            }
+            val request =
+                OneTimeWorkRequestBuilder<GetOfferWorker>()
+                    .addTag("Force Notify")
+                    .build()
+            WorkManager.getInstance(this).enqueue(request)
         }
 
         update.setOnClickListener {
@@ -76,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        track.isChecked = RequestBroadcast.isRunning(this)
+        track.isChecked = GetOfferWorker.isRunning(this)
     }
 
     private fun updateOfferAdapter(list: List<Offer>) {

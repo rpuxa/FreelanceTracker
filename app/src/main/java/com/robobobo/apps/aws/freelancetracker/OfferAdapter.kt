@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.view.isVisible
+import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -35,9 +35,9 @@ class OfferAdapter :
             description.text = offer.description
             time.text = offer.date
             suggestions.text = context.getString(R.string.suggestions, offer.suggestions)
-            isNew.isVisible = offer.isNew
+            isNew.isInvisible = !offer.isNew
             itemView.setOnClickListener {
-                isNew.isVisible = false
+                isNew.isInvisible = true
                 context.startActivity<OfferActivity>(
                     OfferActivity.OFFER to offer,
                     OfferActivity.FROM_NOTIFICATION to false
