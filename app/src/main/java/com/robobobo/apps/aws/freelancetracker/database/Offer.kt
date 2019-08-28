@@ -20,8 +20,7 @@ data class Offer(
     val time: Long
 ) : Serializable {
 
-    val date: String
-        get() = SimpleDateFormat("HH:mm MMMM dd", Locale.US).format(Date(time))
+    val date: String get() = format.format(Date(time))
 
     @PrimaryKey
     var id: Int = 0
@@ -68,6 +67,8 @@ data class Offer(
         return result
     }
 
-
+    companion object {
+        val format = SimpleDateFormat("HH:mm MMMM dd", Locale.US)
+    }
 }
 

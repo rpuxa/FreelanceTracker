@@ -32,13 +32,13 @@ abstract class OffersDao {
     suspend fun markAsNotNew(offer: Offer) = markAsNotNew(offer.id)
 
     @Transaction
-    open suspend fun markAsNotNew(offers: Iterable<Offer>) = offers.forEach { offer -> markAsNotNew(offer.id) }
+    open suspend fun markAsNotNew(offers: Iterable<Offer>) = offers.forEach { markAsNotNew(it) }
 
     @Transaction
     open suspend fun markAsNotNew(offersIds: IntArray)= offersIds.forEach { markAsNotNew(it) }
 
     @Transaction
-    open suspend fun addNew(offers: List<Offer>): List<Offer> {
+    open suspend fun addNew(offers: Iterable<Offer>): List<Offer> {
         val all = getAll()
         var id = (all.maxBy { it.id }?.id ?: 0) + 1
         val new = ArrayList<Offer>()

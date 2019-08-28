@@ -89,7 +89,7 @@ class GetOfferWorker(context: Context, params: WorkerParameters) :
             context,
             CHANNEL_ID
         )
-            .setSmallIcon(R.drawable.notif)
+            .setSmallIcon(R.drawable.app_icon)
             .setStyle(bigTextStyle)
 
         val stackBuilder = TaskStackBuilder.create(context)
@@ -99,7 +99,7 @@ class GetOfferWorker(context: Context, params: WorkerParameters) :
             PendingIntent.FLAG_UPDATE_CURRENT
         )
         builder.setContentIntent(resultPendingIntent)
-            .addAction(R.drawable.notif, buttonName, buttonIntent)
+            .addAction(R.drawable.app_icon, buttonName, buttonIntent)
             .setAutoCancel(true)
 
 

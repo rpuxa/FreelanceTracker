@@ -33,9 +33,11 @@ class OfferActivity : AppCompatActivity() {
         offer_suggestions.text = getString(R.string.suggestions, offer.suggestions)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
+
         lifecycleScope.launch(Dispatchers.Main) {
             offer_progress_bar.isVisible = true
             offer_info.isVisible = false
+
             var fullOffer: FullOffer
             while (true) {
                 try {
